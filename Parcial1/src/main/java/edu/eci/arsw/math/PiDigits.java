@@ -46,6 +46,43 @@ public class PiDigits {
 
         return digits;
     }
+    public static byte[] getDigits(int start, int count, int n) {
+        if (start < 0) {
+            throw new RuntimeException("Invalid Interval");
+        }
+
+        if (count < 0) {
+            throw new RuntimeException("Invalid Interval");
+        }
+
+        byte[] digits = new byte[count];
+        double sum = 0;
+        PiThread piThread = new PiThread(n, count);
+        int p = piThread.getParte();
+
+        for(int j = 0; j < n; j++){
+            
+    
+            for (int i = 0; i < count; i++) {
+                if (i % DigitsPerSum == 0) {
+                    sum = 4 * sum(1, start)
+                            - 2 * sum(4, start)
+                            - sum(5, start)
+                            - sum(6, start);
+    
+                    start += DigitsPerSum;
+                }
+    
+                sum = 16 * (sum - Math.floor(sum));
+                digits[i] = (byte) sum;
+            }
+    
+            
+        }
+        return digits;
+    }
+
+
 
     /// <summary>
     /// Returns the sum of 16^(n - k)/(8 * k + m) from 0 to k.
